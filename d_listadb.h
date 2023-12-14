@@ -12,10 +12,10 @@ typedef struct DList{
     NodeDL *start;
 }DList;
 
-typedef struct RolesUsuarios
-{
-    char tipo;
-}roles;
+typedef struct RolesUsuarios{
+    char Administrador;
+    char Alumno;
+}rol;
 
 
 
