@@ -12,6 +12,13 @@ typedef struct DList{
     NodeDL *start;
 }DList;
 
+typedef struct RolesUsuarios{
+    char Administrador;
+    char Alumno;
+}rol;
+
+
+
 void create(DList *DLi);
 int is_empty(DList DLi);
 void insertAtStartDL(DList *DLi, int newElement);
