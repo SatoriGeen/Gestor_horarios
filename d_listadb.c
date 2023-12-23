@@ -61,4 +61,50 @@ void insertAfterNodeDL(DList *DLi, int newElement, NodeDL *a){
         a->next=new;
         new->e=newElement;
     }
+    void modificarHorario(ListaDoble *DLi, char nombreClase[50], char nuevoNombre[50], char nuevaHoraInicio[10], char nuevaHoraFin[10], char nuevoGrupo[5], char nuevoProfesor[50]) {
+    NodeDL *current = DLi->start;
+
+    while (current != NULL) {
+        if (strcmp(current->e.nombreClase, nombreClase) == 0) {
+            strcpy(current->e.nombreClase, nuevoNombre);
+            strcpy(current->e.horaInicio, nuevaHoraInicio);
+            strcpy(current->e.horaFin, nuevaHoraFin);
+            strcpy(current->e.grupo, nuevoGrupo);
+            strcpy(current->e.profesor, nuevoProfesor);
+
+            printf("Horario modificado.\n");
+            return;
+        }
+
+        current = current->next;
+    }
+
+    printf("No se encontro el horario con el nombre de clase\n");
+}
+
+void eliminarHorario(ListaDoble *DLi, char nombreClase[50]) {
+    NodeDL *current = DLi->start;
+
+    while (current != NULL) {
+        if (strcmp(current->e.nombreClase, nombreClase) == 0) {
+            if (current->prev != NULL) {
+                current->prev->next = current->next;
+            } else {
+                DLi->start = current->next;
+            }
+
+            if (current->next != NULL) {
+                current->next->prev = current->prev;
+            }
+
+            free(current);
+            printf("Horario eliminado\n");
+            return;
+        }
+
+        current = current->next;
+    }
+
+    printf("No se encontro el horario con el nombre de clase\n");
+}
 }
