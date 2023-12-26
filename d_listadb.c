@@ -4,7 +4,8 @@
 #include <stdbool.h>
 #include <string.h>
 
-
+//funciones que faltan por adaptar
+/*
 void create(DList *DLi){
     DLi->start=NULL;
 }
@@ -61,7 +62,24 @@ void insertAfterNodeDL(DList *DLi, int newElement, NodeDL *a){
         a->next=new;
         new->e=newElement;
     }
-    void modificarHorario(ListaDoble *DLi, char nombreClase[50], char nuevoNombre[50], char nuevaHoraInicio[10], char nuevaHoraFin[10], char nuevoGrupo[5], char nuevoProfesor[50]) {
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// FUNCIONES PROPUESTAS POR ALEXIS
+/*
+void modificarHorario(ListaDoble *DLi, char nombreClase[50], char nuevoNombre[50], char nuevaHoraInicio[10], char nuevaHoraFin[10], char nuevoGrupo[5], char nuevoProfesor[50]) {
     NodeDL *current = DLi->start;
 
     while (current != NULL) {
@@ -107,4 +125,60 @@ void eliminarHorario(ListaDoble *DLi, char nombreClase[50]) {
 
     printf("No se encontro el horario con el nombre de clase\n");
 }
+void menuAdmin(ListaDoble horarios[]) {
+    int grupo;
+    do {
+        printf("\nMenú de Administrador\n");
+        printf("1. Agregar un horario\n");
+        printf("2. Modificar un horario\n");
+        printf("3. Eliminar un horario\n");
+        printf("4. Consultar horarios\n");
+        printf("5. Salir\n");
+        printf("Seleccione una opción: ");
+        scanf("%d", &grupo);
+
+        switch (grupo) {
+            case 1:
+                // este para agregar un horario
+                break;
+            case 2:
+                // este para modificar un horario
+                break;
+            case 3:
+                // este para eliminar un horario
+                break;
+            case 4:
+                // este para consultar horarios
+                break;
+            case 5:
+                printf("Saliendo...\n");
+                break;
+            default:
+                printf("Opción no válida. Intente de nuevo.\n");
+        }
+    } while (grupo != 5);
 }
+
+void menuAlumno(ListaDoble horarios[]) {
+    int opcion;
+    do {
+        printf("\nMenú de Alumno\n");
+        printf("1. Armar horario de clases\n");
+        printf("2. Salir\n");
+        printf("Seleccione una opción: ");
+        scanf("%d", &opcion);
+
+        switch (opcion) {
+            case 1:
+                // usar para armar horario de clases
+                break;
+            case 2:
+                printf("Saliendo...\n");
+                break;
+            default:
+                printf("Opción no válida. Intente de nuevo.\n");
+        }
+    } while (opcion != 2);
+}
+}
+*/
