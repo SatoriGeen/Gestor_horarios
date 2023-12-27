@@ -81,12 +81,16 @@ typedef struct {
     char rolUsuario[10];
 } Usuario;
 
+typedef struct {
+    int idHorario;
+    int idAlumno;
+} HorarioAlumno;
 
-typedef struct NodeDL {
+typedef struct NodeDL{
     char nombreClase[50];
     char horaInicio[10];
     char horaFin[10];
-    char grupo[5];
+    char grupo[10];
     char profesor[50];
     struct NodeDL* next;
     struct NodeDL* prev;
@@ -96,19 +100,20 @@ typedef struct DList{
     NodeDL *start;
 } DList;
 
-typedef struct {
-    int idHorario;
-    int idAlumno;
-} HorarioAlumno;
 
 
 
 void create(DList *DLi);
 int is_empty(DList DLi);
-void insertAtStartDL(DList *DLi, int newElement);
+void insertarHorario(DList *DLi, char nombreClase[50], char horaInicio[10], char horaFin[10], char grupo[10], char profesor[50]);
+void imprimirHorario(DList *Dli);
+void imprimirListas(DList *Dli);
+void mostrarGrupos();
+void menuAdmin();
+/*
 void insertAtEndDL(DList *Dli, int newElement);
 void insertAfterNodeDL(DList *DLi, int newElement, NodeDL *a);
-/*
+
 void modificarHorario(ListaDoble *DLi, char nombreClase[50], char nuevoNombre[50], char nuevaHoraInicio[10], char nuevaHoraFin[10], char nuevoGrupo[5], char nuevoProfesor[50]);
 void eliminarHorario(ListaDoble *DLi, char nombreClase[50]);
 */
