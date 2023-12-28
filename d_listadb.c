@@ -8,6 +8,10 @@ void create(DList *DLi){
     DLi->start=NULL;
 }
 
+void createU(UdList *UDli){
+    UDli->start=NULL;
+}
+
 int is_empty(DList DLi){
     if (DLi.start==NULL){
         return 1;
@@ -15,6 +19,39 @@ int is_empty(DList DLi){
     else{
         return 0;
     }
+}
+
+int is_emptyU(UdList UDLi){
+    if (UDLi.start==NULL){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+void insertarUsuarios(UdList *UDLi, char nombreUsuario[15], char contrasena[50], char nombreCompleto[100], char rolUsuario[10]){
+    UsuarioDL *new=(UsuarioDL *)malloc(sizeof(UsuarioDL));
+    
+    new->next=UDLi->start;
+    if (!is_emptyU(*UDLi)){
+        UDLi->start->prev=new;
+    }
+
+    UDLi->start=new;
+    //asignacion de elementos a la cadena    
+    strncpy(new->nombreUsuario, nombreUsuario, sizeof(new->nombreUsuario) - 1);
+    strncpy(new->contrasena, contrasena, sizeof(new->contrasena) - 1);
+    strncpy(new->nombreCompleto, nombreCompleto, sizeof(new->nombreCompleto) - 1);
+    strncpy(new->rolUsuario, rolUsuario, sizeof(new->rolUsuario) - 1);
+    //asignacion de caracter nulo al final de cada cadena para evitar problemas en el bufer
+    new->nombreUsuario[sizeof(new->nombreUsuario) - 1] = '\0';
+    new->contrasena[sizeof(new->contrasena) - 1] = '\0';
+    new->nombreCompleto[sizeof(new->nombreCompleto) - 1] = '\0';
+    new->rolUsuario[sizeof(new->rolUsuario) - 1] = '\0';
+    
+    new->prev=NULL;
+
 }
 
 void insertarHorario(DList *DLi, char nombreClase[50], char horaInicio[10], char horaFin[10], char grupo[10], char profesor[50]){
@@ -45,6 +82,27 @@ void insertarHorario(DList *DLi, char nombreClase[50], char horaInicio[10], char
 
 }
 
+void imprimirUsuarios(UdList *UDLi){
+    UsuarioDL *aux = UDLi->start;
+    if (is_emptyU(*UDLi)){
+        printf("No hay usuarios");
+    }
+    else{
+        while (aux!=NULL)
+        {
+            printf("\n");
+            printf("Usuario: %s\n", aux->nombreUsuario);
+            printf("Contrasena: %s\n", aux->contrasena);
+            printf("Nombre completo: %s\n", aux->nombreCompleto);
+            printf("Rol del usuario: %s\n", aux->rolUsuario);
+            printf("\n");
+            aux=aux->next;
+        }
+        
+    }
+
+}
+
 void imprimirHorario(DList *Dli){
     NodeDL *aux = Dli->start;
     if (is_empty(*Dli)){
@@ -71,12 +129,14 @@ void imprimirHorario(DList *Dli){
 
 }
 
+
 void mostrarGrupos(){
     printf("Lista de grupos existentes: \n");
     printf("1. 2CV1\n");
     printf("2. 2CV2\n");
     printf("3. 2CV3\n");
     printf("4. 2CV4\n");
+    printf("elige un grupo: ");
 }
 
 void menuAdmin(){
@@ -97,7 +157,19 @@ void menuAdmin(){
             /*funcion para agregar usuario*/
             break;
         case 2:
-            do {
+            mostrarGrupos();
+            
+            break;
+        default:
+            break;
+        }
+    } while (eleccion!=3);
+    
+}
+
+
+/*
+do {
                 printf("1. Agregar un horario\n");
                 printf("2. Modificar un horario\n");
                 printf("3. Eliminar un horario\n");
@@ -125,14 +197,7 @@ void menuAdmin(){
                     default:
                         printf("Opcion no válida.\n");
                 }
-            } while (opcion != 5);
-            break;
-        default:
-            break;
-        }
-    } while (eleccion!=3);
-    
-}
+            } while (opcion != 5);*/
 
 /*
 void insertAtEndDL(DList *Dli, int newElement){

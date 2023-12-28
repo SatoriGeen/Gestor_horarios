@@ -74,17 +74,18 @@ typedef enum {
 
 // Fin estrcuturas enum
 
-typedef struct {
-    char nombreusuario[50];
+typedef struct UsuarioDL{
+    char nombreUsuario[15];
     char contrasena[50];
     char nombreCompleto[100];
     char rolUsuario[10];
-} Usuario;
+    struct UsuarioDL *prev;
+    struct UsuarioDL *next;
+} UsuarioDL;
 
-typedef struct {
-    int idHorario;
-    int idAlumno;
-} HorarioAlumno;
+typedef struct UdList{
+    UsuarioDL *start;
+} UdList;
 
 typedef struct NodeDL{
     char nombreClase[50];
@@ -100,13 +101,22 @@ typedef struct DList{
     NodeDL *start;
 } DList;
 
-
+/*
+typedef struct {
+    int idHorario;
+    int idAlumno;
+} HorarioAlumno;
+*/
 
 
 void create(DList *DLi);
+void createU(UdList *UDli);
 int is_empty(DList DLi);
+int is_emptyU(UdList UDLi);
 void insertarHorario(DList *DLi, char nombreClase[50], char horaInicio[10], char horaFin[10], char grupo[10], char profesor[50]);
+void insertarUsuarios(UdList *UDLi, char nombreUsuario[15], char contrasena[50], char nombreCompleto[100], char rolUsuario[10]);
 void imprimirHorario(DList *Dli);
+void imprimirUsuarios(UdList *UDLi);
 void imprimirListas(DList *Dli);
 void mostrarGrupos();
 void menuAdmin();

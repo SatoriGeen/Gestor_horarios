@@ -10,12 +10,49 @@ int main(){
     create(&_2CV2_);
     create(&_2CV3_);
     create(&_2CV4_);
+
+    UdList usuarios;
+    createU(&usuarios);
     
     char nombreClase[50];
     char horaInicio[10];
     char horaFin[10];
     char grupo[10];
     char profesor[50];
+
+    char nombreUsuario[15];
+    char contrasena[50];
+    char nombreCompleto[100];
+    char rolUsuario[10];
+    int opcion;
+
+    printf("ingrese el nuevo usuario: ");
+    fgets(nombreUsuario, sizeof(nombreUsuario), stdin);
+    nombreUsuario[strcspn(nombreUsuario, "\n")] = '\0';
+
+    printf("Ingrese la contrasena: ");
+    fgets(contrasena, sizeof(contrasena), stdin);
+    contrasena[strcspn(contrasena, "\n")] = '\0';
+
+    printf("ingrese el nombre completo: ");
+    fgets(nombreCompleto, sizeof(nombreCompleto), stdin);
+    nombreCompleto[strcspn(nombreCompleto, "\n")] = '\0';
+
+    printf("Elija el tipo de usuario: \n");
+    printf("1. Administrador\n");
+    printf("2. Alumno\n");
+    scanf("%d", &opcion);
+
+    if (opcion == 1){
+        strcpy(rolUsuario, "admin");
+    }
+    else{
+        strcpy(rolUsuario, "alumno");
+    }
+    
+    insertarUsuarios(&usuarios, nombreUsuario, contrasena, nombreCompleto, rolUsuario);
+    imprimirUsuarios(&usuarios);
+
 
     /*printf("Ingrese el nombre de la clase: ");
     fgets(nombreClase, sizeof(nombreClase), stdin);
@@ -40,7 +77,7 @@ int main(){
     insertarHorario(&_2CV1_, nombreClase, horaInicio, horaFin, grupo, profesor);
     imprimirHorario(&_2CV1_);*/
 
-    menuAdmin();
+
 
     
     return 0;
