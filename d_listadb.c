@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 
+
 void create(DList *DLi){
     DLi->start=NULL;
 }
@@ -168,6 +169,28 @@ void menuAdmin(){
 }
 
 
+
+
+
+// funciones para Cifrar la contraseña
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 do {
                 printf("1. Agregar un horario\n");
@@ -233,16 +256,6 @@ void insertAfterNodeDL(DList *DLi, int newElement, NodeDL *a){
         new->e=newElement;
     }
 */
-
-
-
-
-
-
-
-
-
-
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

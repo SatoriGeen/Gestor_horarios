@@ -101,6 +101,7 @@ typedef struct DList{
     NodeDL *start;
 } DList;
 
+
 /*
 typedef struct {
     int idHorario;
@@ -120,6 +121,7 @@ void imprimirUsuarios(UdList *UDLi);
 void imprimirListas(DList *Dli);
 void mostrarGrupos();
 void menuAdmin();
+
 /*
 void insertAtEndDL(DList *Dli, int newElement);
 void insertAfterNodeDL(DList *DLi, int newElement, NodeDL *a);
