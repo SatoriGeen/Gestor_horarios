@@ -147,15 +147,17 @@ void menuAdmin(){
     {
         printf("\n---BIENVENIDO---\n");
         printf("1. Agregar usuario nuevo\n");
-        printf("2. Editar horarios\n");
-        printf("3. Salir\n");
+        printf("2. Insertar horario");
+        printf("3. Editar horarios\n");
+        printf("4. Salir\n");
         printf("Por favor digite el numero de accion deseada:");
         scanf("%d", &eleccion);
         
         switch (eleccion)
         {
         case 1:
-            /*funcion para agregar usuario*/
+
+
             break;
         case 2:
             mostrarGrupos();
@@ -168,6 +170,45 @@ void menuAdmin(){
     
 }
 
+void manejarInsercionEnHorario(DList *lista, int opcion) {
+    char nombreClase[50], horaInicio[10], horaFin[10], grupo[10],profesor[50];
+
+            printf("Ingrese el nombre de la clase: ");
+            fgets(nombreClase, sizeof(nombreClase), stdin);
+            nombreClase[strcspn(nombreClase, "\n")] = '\0';
+
+            printf("Ingrese la hora de inicio: ");
+            fgets(horaInicio, sizeof(horaInicio), stdin);
+            horaInicio[strcspn(horaInicio, "\n")] = '\0';
+
+            printf("Ingrese la hora fin: ");
+            fgets(horaFin, sizeof(horaFin), stdin);
+            horaFin[strcspn(horaFin, "\n")] = '\0';
+
+            switch (opcion){
+                case 1:
+                    strcpy(grupo,"2CV1");
+                    break;
+                case 2:
+                    strcpy(grupo,"2CV2");
+                    break;
+                case 3:
+                    strcpy(grupo,"2CV3");
+                    break;
+                case 4:
+                    strcpy(grupo,"2CV4");
+                    break;    
+                default:
+                    printf("no se pudo ingresar el grupo");
+                    break;
+            }
+
+        printf("Ingrese el nombre del profesor: ");
+        fgets(profesor, sizeof(profesor), stdin);
+        profesor[strcspn(profesor, "\n")] = '\0';
+
+        insertarHorario(lista, nombreClase, horaInicio, horaFin, grupo, profesor);
+}
 
 
 

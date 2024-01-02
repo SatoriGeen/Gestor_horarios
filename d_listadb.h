@@ -116,6 +116,7 @@ int is_empty(DList DLi);
 int is_emptyU(UdList UDLi);
 void insertarHorario(DList *DLi, char nombreClase[50], char horaInicio[10], char horaFin[10], char grupo[10], char profesor[50]);
 void insertarUsuarios(UdList *UDLi, char nombreUsuario[15], char contrasena[50], char nombreCompleto[100], char rolUsuario[10]);
+void manejarInsercionEnHorario(DList *lista, int opcion);
 void imprimirHorario(DList *Dli);
 void imprimirUsuarios(UdList *UDLi);
 void imprimirListas(DList *Dli);
