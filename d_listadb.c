@@ -211,10 +211,87 @@ void manejarInsercionEnHorario(DList *lista, int opcion) {
 }
 
 
+void manejarInsercionEnGrupo(DList *lista, int opi){
+        
+        char nombreClaseEditar[50], nuevoProfesor[50], nuevoNombreClase[50], nuevaHoraInicio[10], nuevaHoraFin[10], nuevoGrupo[10];
+        
+        printf("\nIngrese el nombre de la clase que desea editar: ");
+        
+        fgets(nombreClaseEditar, sizeof(nombreClaseEditar), stdin);
+        nombreClaseEditar[strcspn(nombreClaseEditar, "\n")] = '\0';
+
+        printf("Ingrese nuevos datos:\n");
+        printf("Nuevo nombre de la clase: ");
+        fgets(nuevoNombreClase, sizeof(nuevoNombreClase), stdin);
+        nuevoNombreClase[strcspn(nuevoNombreClase, "\n")] = '\0';
+
+        printf("Nueva hora de inicio: ");
+        fgets(nuevaHoraInicio, sizeof(nuevaHoraInicio), stdin);
+        nuevaHoraInicio[strcspn(nuevaHoraInicio, "\n")] = '\0';
+
+        printf("Nueva hora de fin: ");
+        fgets(nuevaHoraFin, sizeof(nuevaHoraFin), stdin);
+        nuevaHoraFin[strcspn(nuevaHoraFin, "\n")] = '\0';
+
+        printf("Nuevo profesor: ");
+        fgets(nuevoProfesor, sizeof(nuevoProfesor), stdin);
+        nuevoProfesor[strcspn(nuevoProfesor, "\n")] = '\0';
+
+        // Editar el horario
+        editarHorario(lista, nombreClaseEditar, nuevoNombreClase, nuevaHoraInicio, nuevaHoraFin, nuevoGrupo, nuevoProfesor);
+        printf("\nCambios completados:\n");
+        imprimirHorario(lista);
+}
 
 
-// funciones para Cifrar la contraseña
 
+void editarHorario(DList *DLi, char nombreClaseEditar[50], char nuevoNombreClase[50], char nuevaHoraInicio[10], char nuevaHoraFin[10], char nuevoGrupo[10], char nuevoProfesor[50]) {
+    NodeDL *aux = DLi->start;
+
+    while (aux != NULL) {
+        // Buscar el nodo con el nombre de clase a editar
+        if (strcmp(aux->nombreClase, nombreClaseEditar) == 0) {
+            // Realizar las ediciones necesarias
+            strncpy(aux->nombreClase, nuevoNombreClase, sizeof(aux->nombreClase) - 1);
+            strncpy(aux->horaInicio, nuevaHoraInicio, sizeof(aux->horaInicio) - 1);
+            strncpy(aux->horaFin, nuevaHoraFin, sizeof(aux->horaFin) - 1);
+            strncpy(aux->profesor, nuevoProfesor, sizeof(aux->profesor) - 1);
+
+            // Asignar el carácter nulo al final de cada cadena
+            aux->nombreClase[sizeof(aux->nombreClase) - 1] = '\0';
+            aux->horaInicio[sizeof(aux->horaInicio) - 1] = '\0';
+            aux->horaFin[sizeof(aux->horaFin) - 1] = '\0';
+            aux->profesor[sizeof(aux->profesor) - 1] = '\0';
+
+            // Salir del bucle después de editar el nodo
+            break;
+        }
+
+        aux = aux->next;
+    }
+}
+
+void imprimirCLases(DList *Dli){
+    int contador = 0;
+    NodeDL *aux = Dli->start;
+    if (is_empty(*Dli)){
+
+        printf("Grupo vacio");
+
+    }
+    else{
+        while (aux!=NULL)
+        {
+            contador++;
+            printf("Clase %d:  %s\n", contador, aux->nombreClase);
+            printf("\n");
+            aux=aux->next;
+
+        }   
+
+    } 
+
+}
 
 
 

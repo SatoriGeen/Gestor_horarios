@@ -7,38 +7,41 @@
 
 int main(){
     
-    DList _2CV1_, _2CV2_, _2CV3_, _2CV4_;
+ DList _2CV1_, _2CV2_, _2CV3_, _2CV4_;
     create(&_2CV1_);
     create(&_2CV2_);
     create(&_2CV3_);
     create(&_2CV4_);
     DList *listas[] = {&_2CV1_, &_2CV2_, &_2CV3_, &_2CV4_};
 
-            int opcion;
-            printf("Seleccione la lista:\n");
-            printf("1. 2CV1\n");
-            printf("2. 2CV2\n");
-            printf("3. 2CV3\n");
-            printf("4. 2CV4\n");
-            printf("0. Salir\n");
-            printf("Opcion: ");
-            scanf("%d", &opcion);
-            getchar(); // Consumir el salto de línea pendiente en el búfer
-            manejarInsercionEnHorario(listas[opcion - 1], opcion);
-            printf("\n lista 1:");
-            imprimirHorario(&_2CV1_);
-            printf("\nlista 2:");
-            imprimirHorario(&_2CV2_);
-            printf("\nlista 3:");
-            imprimirHorario(&_2CV3_);
-            printf("\nlista 4:");
-            imprimirHorario(&_2CV4_);
+    // pruebas de insercion
+    int opcion;
+    printf("Seleccione la lista:\n");
+    printf("1. 2CV1\n");
+    printf("2. 2CV2\n");
+    printf("3. 2CV3\n");
+    printf("4. 2CV4\n");
+    printf("0. Salir\n");
+    printf("Opcion: ");
+    scanf("%d", &opcion);
+    getchar(); // Consumir el salto de línea pendiente en el búfer
+    manejarInsercionEnHorario(listas[opcion - 1], opcion);
 
+    //pruebas de edicion
+    int opi;
+    printf("\ngrupo a editar: \n");
+    printf("1. 2CV1\n");
+    printf("2. 2CV2\n");
+    printf("3. 2CV3\n");
+    printf("4. 2CV4\n");
+    printf("0. Salir\n");
+    scanf("%d", &opi);
+    getchar(); // Consumir el salto de línea pendiente en el búfer
 
+    printf("elige clase a editar \n");
+    imprimirCLases(listas[opi - 1]);
+    manejarInsercionEnGrupo(listas[opi - 1], opi);
 
-    // Validar la opción
-
-         
     /*
     UdList usuarios;
     createU(&usuarios);
@@ -70,11 +73,6 @@ int main(){
     
     insertarUsuarios(&usuarios, nombreUsuario, contrasena, nombreCompleto, rolUsuario);
     imprimirUsuarios(&usuarios);*/
-
-
-
-
-
     
     return 0;
 }
