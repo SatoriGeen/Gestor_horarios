@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-
+int iniciarSesion(UdList *UDLi, char nombreUsuario[], char contrasena[]);
 
 int main(){
     
@@ -14,10 +14,49 @@ int main(){
     create(&_2CV4_);
     DList *listas[] = {&_2CV1_, &_2CV2_, &_2CV3_, &_2CV4_};
 
-    UdList usuarios;
 
-    
+    UdList listaUsuarios;
+    listaUsuarios.start = NULL;
 
+    insertarUsuarios(&listaUsuarios, "sato", "pass1", "no se 1", "Admin");
+    insertarUsuarios(&listaUsuarios, "sata", "pass2", "no se 2", "Alumno");
+    insertarUsuarios(&listaUsuarios, "adata", "pass3", "no se 3", "Alumno");
+
+    char nombreUsuario[15];
+    char contrasena[50];
+
+    printf("Ingrese el nombre de usuario: ");
+    fgets(nombreUsuario, sizeof(nombreUsuario), stdin);
+    nombreUsuario[strcspn(nombreUsuario, "\n")] = '\0';
+
+    printf("Ingrese la contrasena: ");
+    fgets(contrasena, sizeof(contrasena), stdin);
+    contrasena[strcspn(contrasena, "\n")] = '\0';
+
+    int val = iniciarSesion(&listaUsuarios, nombreUsuario, contrasena);
+
+    if (val) {
+        UsuarioDL *aux = listaUsuarios.start;
+        while (aux != NULL && strcmp(aux->nombreUsuario, nombreUsuario) != 0) {
+            aux = aux->next;
+        }
+
+        switch (strcmp(aux->rolUsuario, "Admin")) {
+            case 0:
+
+                printf("\ningresaste como admin.\n");
+
+                break;
+            default:
+
+                printf("\ningresaste como alumno\n");
+
+        }
+    } else {
+        printf("\nUsuario o contrasena incorrectas\n");
+    }
+
+    /*
     int opcion;
     menuDeListas();
     scanf("%d", &opcion);
@@ -44,7 +83,7 @@ int main(){
     manejarReduccionEnGrupo(listas[opio - 1], opio);
 
 
-    manejarInsercionDeUsuarios(&usuarios);
+    manejarInsercionDeUsuarios(&usuarios);*/
 
     /*
     UdList usuarios;
@@ -80,3 +119,4 @@ int main(){
     
     return 0;
 }
+

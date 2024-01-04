@@ -379,6 +379,21 @@ void manejarInsercionDeUsuarios(UdList* UDLi) {
 
 }
 
+int iniciarSesion(UdList *UDLi, char nombreUsuario[], char contrasena[]) {
+    UsuarioDL *aux = UDLi->start;
+
+    while (aux != NULL) {
+        if (strcmp(aux->nombreUsuario, nombreUsuario) == 0 && strcmp(aux->contrasena, contrasena) == 0) {
+            printf("\nInicio de sesion exitoso.\n");
+            return 1;
+        }
+        aux = aux->next;
+    }
+
+    // Inicio de sesión fallido
+    printf("\nUsuario o contrasena incorrectos.\n");
+    return 0; 
+}
 
 
 
