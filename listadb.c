@@ -7,32 +7,25 @@
 
 int main(){
     
- DList _2CV1_, _2CV2_, _2CV3_, _2CV4_;
+    DList _2CV1_, _2CV2_, _2CV3_, _2CV4_;
     create(&_2CV1_);
     create(&_2CV2_);
     create(&_2CV3_);
     create(&_2CV4_);
     DList *listas[] = {&_2CV1_, &_2CV2_, &_2CV3_, &_2CV4_};
 
+    UdList usuarios;
+
+    
+
     int opcion;
-    printf("Seleccione la lista:\n");
-    printf("1. 2CV1\n");
-    printf("2. 2CV2\n");
-    printf("3. 2CV3\n");
-    printf("4. 2CV4\n");
-    printf("0. Salir\n");
-    printf("Opcion: ");
+    menuDeListas();
     scanf("%d", &opcion);
     getchar(); 
     manejarInsercionEnHorario(listas[opcion - 1], opcion);
 
     int opi;
-    printf("\ngrupo a editar: \n");
-    printf("1. 2CV1\n");
-    printf("2. 2CV2\n");
-    printf("3. 2CV3\n");
-    printf("4. 2CV4\n");
-    printf("0. Salir\n");
+    menuDeListas();
     scanf("%d", &opi);
     getchar(); 
 
@@ -41,12 +34,7 @@ int main(){
     manejarEdicionEnGrupo(listas[opi - 1], opi);
 
     int opio;
-    printf("\ngrupo a editar: \n");
-    printf("1. 2CV1\n");
-    printf("2. 2CV2\n");
-    printf("3. 2CV3\n");
-    printf("4. 2CV4\n");
-    printf("0. Salir\n");
+    menuDeListas();
     scanf("%d", &opio);
     getchar(); 
 
@@ -56,6 +44,7 @@ int main(){
     manejarReduccionEnGrupo(listas[opio - 1], opio);
 
 
+    manejarInsercionDeUsuarios(&usuarios);
 
     /*
     UdList usuarios;

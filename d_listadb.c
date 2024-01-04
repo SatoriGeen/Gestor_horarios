@@ -66,13 +66,13 @@ void insertarHorario(DList *DLi, char nombreClase[50], char horaInicio[10], char
     }
 
     DLi->start=new;
-    //asignacion de elementos a la cadena
+
     strncpy(new->nombreClase, nombreClase, sizeof(new->nombreClase) - 1);
     strncpy(new->horaInicio, horaInicio, sizeof(new->horaInicio) - 1);
     strncpy(new->horaFin, horaFin, sizeof(new->horaFin) - 1);
     strncpy(new->grupo, grupo, sizeof(new->grupo) - 1);
     strncpy(new->profesor, profesor, sizeof(new->profesor) - 1);
-    //asignacion de caracter nulo al final de cada cadena para evitar problemas en el bufer
+
     new->nombreClase[sizeof(new->nombreClase) - 1] = '\0';
     new->horaInicio[sizeof(new->horaInicio) - 1] = '\0';
     new->horaFin[sizeof(new->horaFin) - 1] = '\0';
@@ -129,7 +129,6 @@ void imprimirHorario(DList *Dli){
     } 
 
 }
-
 
 void mostrarGrupos(){
     printf("Lista de grupos existentes: \n");
@@ -245,21 +244,19 @@ void editarHorario(DList *DLi, char nombreClaseEditar[50], char nuevoNombreClase
     NodeDL *aux = DLi->start;
 
     while (aux != NULL) {
-        // Buscar el nodo con el nombre de clase a editar
+
         if (strcmp(aux->nombreClase, nombreClaseEditar) == 0) {
-            // Realizar las ediciones necesarias
+            
             strncpy(aux->nombreClase, nuevoNombreClase, sizeof(aux->nombreClase) - 1);
             strncpy(aux->horaInicio, nuevaHoraInicio, sizeof(aux->horaInicio) - 1);
             strncpy(aux->horaFin, nuevaHoraFin, sizeof(aux->horaFin) - 1);
             strncpy(aux->profesor, nuevoProfesor, sizeof(aux->profesor) - 1);
 
-            // Asignar el carácter nulo al final de cada cadena
             aux->nombreClase[sizeof(aux->nombreClase) - 1] = '\0';
             aux->horaInicio[sizeof(aux->horaInicio) - 1] = '\0';
             aux->horaFin[sizeof(aux->horaFin) - 1] = '\0';
             aux->profesor[sizeof(aux->profesor) - 1] = '\0';
 
-            // Salir del bucle después de editar el nodo
             break;
         }
 
@@ -299,35 +296,34 @@ void manejarReduccionEnGrupo(DList *lista, int opio){
         nombreClaseEliminar[strcspn(nombreClaseEliminar, "\n")] = '\0';
 
         eliminarHorario(lista, nombreClaseEliminar);
+
         printf("\nCambios completados:\n");
+        
         imprimirHorario(lista);
 }
-
 
 void eliminarHorario(DList *DLi, char nombreClaseEliminar[50]) {
     NodeDL *aux = DLi->start;
 
     while (aux != NULL) {
-        // Buscar el nodo con el nombre de clase a eliminar
+
         if (strcmp(aux->nombreClase, nombreClaseEliminar) == 0) {
-            // Verificar si el nodo es el primero en la lista
+            
             if (aux == DLi->start) {
                 DLi->start = aux->next;
                 if (DLi->start != NULL) {
                     DLi->start->prev = NULL;
                 }
             } else {
-                // Conectar el nodo anterior al siguiente y viceversa
+
                 aux->prev->next = aux->next;
                 if (aux->next != NULL) {
                     aux->next->prev = aux->prev;
                 }
             }
 
-            // Liberar memoria del nodo eliminado
             free(aux);
 
-            // Salir del bucle después de eliminar el nodo
             break;
         }
 
@@ -335,9 +331,53 @@ void eliminarHorario(DList *DLi, char nombreClaseEliminar[50]) {
     }
 }
 
+void menuDeListas(){
+    printf("\ngrupo a editar: \n");
+    printf("1. 2CV1\n");
+    printf("2. 2CV2\n");
+    printf("3. 2CV3\n");
+    printf("4. 2CV4\n");
+    printf("0. Salir\n");
+}
 
+void manejarInsercionDeUsuarios(UdList* UDLi) {
+    char nombreUsuario[15], contrasena[50], nombreCompleto[100], rolUsuario[10];
 
+    printf("\nIngrese los datos del nuevo usuario:\n");
+    
+    printf("Nombre de usuario: ");
+    fgets(nombreUsuario, sizeof(nombreUsuario), stdin);
+    nombreUsuario[strcspn(nombreUsuario, "\n")] = '\0';
 
+    printf("Contrasena: ");
+    fgets(contrasena, sizeof(contrasena), stdin);
+    contrasena[strcspn(contrasena, "\n")] = '\0';
+
+    printf("Nombre completo: ");
+    fgets(nombreCompleto, sizeof(nombreCompleto), stdin);
+    nombreCompleto[strcspn(nombreCompleto, "\n")] = '\0';
+
+    printf("Rol de usuario: \n");
+    printf("digite el numero correspondiente del rol: \n");
+    printf("1. Administrador\n2. Alumno\n");
+    int rol;
+    scanf("%d", &rol);
+    switch (rol) {
+        case 1:
+            strcpy(rolUsuario, "Admin");
+            break;
+        case 2:
+            strcpy(rolUsuario, "Alumno");
+        default:
+            printf("Opcion no valida");
+            break;
+    }
+
+    insertarUsuarios(UDLi, nombreUsuario, contrasena, nombreCompleto, rolUsuario);
+
+    printf("\nUsuario insertado correctamente:\n");
+
+}
 
 
 

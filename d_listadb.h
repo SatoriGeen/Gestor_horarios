@@ -40,11 +40,13 @@ void manejarInsercionEnHorario(DList *lista, int opcion);
 void manejarEdicionEnGrupo(DList *lista, int opi);
 void manejarReduccionEnGrupo(DList *lista, int opio);
 void eliminarHorario(DList *DLi, char nombreClaseEliminar[50]);
+void manejarInsercionDeUsuarios(UdList* UDLi);
 void imprimirHorario(DList *Dli);
 void imprimirUsuarios(UdList *UDLi);
 void imprimirListas(DList *Dli);
 void mostrarGrupos();
 void menuAdmin();
 void imprimirCLases(DList *Dli);
+void menuDeListas();
 
 #endif
