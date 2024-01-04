@@ -37,7 +37,9 @@ void insertarHorario(DList *DLi, char nombreClase[50], char horaInicio[10], char
 void insertarUsuarios(UdList *UDLi, char nombreUsuario[15], char contrasena[50], char nombreCompleto[100], char rolUsuario[10]);
 void editarHorario(DList *DLi, char nombreClaseEditar[50], char nuevoNombreClase[50], char nuevaHoraInicio[10], char nuevaHoraFin[10], char nuevoGrupo[10], char nuevoProfesor[50]);
 void manejarInsercionEnHorario(DList *lista, int opcion);
-void manejarInsercionEnGrupo(DList *lista, int opi);
+void manejarEdicionEnGrupo(DList *lista, int opi);
+void manejarReduccionEnGrupo(DList *lista, int opio);
+void eliminarHorario(DList *DLi, char nombreClaseEliminar[50]);
 void imprimirHorario(DList *Dli);
 void imprimirUsuarios(UdList *UDLi);
 void imprimirListas(DList *Dli);

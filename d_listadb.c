@@ -210,8 +210,7 @@ void manejarInsercionEnHorario(DList *lista, int opcion) {
         insertarHorario(lista, nombreClase, horaInicio, horaFin, grupo, profesor);
 }
 
-
-void manejarInsercionEnGrupo(DList *lista, int opi){
+void manejarEdicionEnGrupo(DList *lista, int opi){
         
         char nombreClaseEditar[50], nuevoProfesor[50], nuevoNombreClase[50], nuevaHoraInicio[10], nuevaHoraFin[10], nuevoGrupo[10];
         
@@ -237,13 +236,10 @@ void manejarInsercionEnGrupo(DList *lista, int opi){
         fgets(nuevoProfesor, sizeof(nuevoProfesor), stdin);
         nuevoProfesor[strcspn(nuevoProfesor, "\n")] = '\0';
 
-        // Editar el horario
         editarHorario(lista, nombreClaseEditar, nuevoNombreClase, nuevaHoraInicio, nuevaHoraFin, nuevoGrupo, nuevoProfesor);
         printf("\nCambios completados:\n");
         imprimirHorario(lista);
 }
-
-
 
 void editarHorario(DList *DLi, char nombreClaseEditar[50], char nuevoNombreClase[50], char nuevaHoraInicio[10], char nuevaHoraFin[10], char nuevoGrupo[10], char nuevoProfesor[50]) {
     NodeDL *aux = DLi->start;
@@ -293,8 +289,51 @@ void imprimirCLases(DList *Dli){
 
 }
 
+void manejarReduccionEnGrupo(DList *lista, int opio){
+        
+        char nombreClaseEliminar[50];
+        
+        printf("\nIngrese el nombre de la clase que desea eliminar: ");
+        
+        fgets(nombreClaseEliminar, sizeof(nombreClaseEliminar), stdin);
+        nombreClaseEliminar[strcspn(nombreClaseEliminar, "\n")] = '\0';
+
+        eliminarHorario(lista, nombreClaseEliminar);
+        printf("\nCambios completados:\n");
+        imprimirHorario(lista);
+}
 
 
+void eliminarHorario(DList *DLi, char nombreClaseEliminar[50]) {
+    NodeDL *aux = DLi->start;
+
+    while (aux != NULL) {
+        // Buscar el nodo con el nombre de clase a eliminar
+        if (strcmp(aux->nombreClase, nombreClaseEliminar) == 0) {
+            // Verificar si el nodo es el primero en la lista
+            if (aux == DLi->start) {
+                DLi->start = aux->next;
+                if (DLi->start != NULL) {
+                    DLi->start->prev = NULL;
+                }
+            } else {
+                // Conectar el nodo anterior al siguiente y viceversa
+                aux->prev->next = aux->next;
+                if (aux->next != NULL) {
+                    aux->next->prev = aux->prev;
+                }
+            }
+
+            // Liberar memoria del nodo eliminado
+            free(aux);
+
+            // Salir del bucle después de eliminar el nodo
+            break;
+        }
+
+        aux = aux->next;
+    }
+}
 
 
 

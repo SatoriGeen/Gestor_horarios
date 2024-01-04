@@ -14,7 +14,6 @@ int main(){
     create(&_2CV4_);
     DList *listas[] = {&_2CV1_, &_2CV2_, &_2CV3_, &_2CV4_};
 
-    // pruebas de insercion
     int opcion;
     printf("Seleccione la lista:\n");
     printf("1. 2CV1\n");
@@ -24,10 +23,9 @@ int main(){
     printf("0. Salir\n");
     printf("Opcion: ");
     scanf("%d", &opcion);
-    getchar(); // Consumir el salto de línea pendiente en el búfer
+    getchar(); 
     manejarInsercionEnHorario(listas[opcion - 1], opcion);
 
-    //pruebas de edicion
     int opi;
     printf("\ngrupo a editar: \n");
     printf("1. 2CV1\n");
@@ -36,11 +34,28 @@ int main(){
     printf("4. 2CV4\n");
     printf("0. Salir\n");
     scanf("%d", &opi);
-    getchar(); // Consumir el salto de línea pendiente en el búfer
+    getchar(); 
 
     printf("elige clase a editar \n");
     imprimirCLases(listas[opi - 1]);
-    manejarInsercionEnGrupo(listas[opi - 1], opi);
+    manejarEdicionEnGrupo(listas[opi - 1], opi);
+
+    int opio;
+    printf("\ngrupo a editar: \n");
+    printf("1. 2CV1\n");
+    printf("2. 2CV2\n");
+    printf("3. 2CV3\n");
+    printf("4. 2CV4\n");
+    printf("0. Salir\n");
+    scanf("%d", &opio);
+    getchar(); 
+
+    printf("elige clase a editar \n");
+    imprimirCLases(listas[opio - 1]);
+
+    manejarReduccionEnGrupo(listas[opio - 1], opio);
+
+
 
     /*
     UdList usuarios;
