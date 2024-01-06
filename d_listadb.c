@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 
+DListHorarioArmado horarioArmadoAlumno; 
 
 void create(DList *DLi){
     DLi->start=NULL;
@@ -400,4 +401,126 @@ int iniciarSesion(UdList *UDLi, char nombreUsuario[], char contrasena[]) {
 
     printf("\nUsuario o contrasena incorrectos.\n");
     return 0; 
+}
+
+void menuAlumno(DList *lista) {
+    int opcion;
+    
+    do {
+        printf("\n--- Menú del Alumno ---\n");
+        printf("1. Armar horario de clases\n");
+        printf("2. Imprimir horario\n");
+        printf("3. Salir\n");
+        printf("Seleccione una opción: ");
+        scanf("%d", &opcion);
+
+        switch (opcion) {
+            case 1:
+                agregarClaseAlumno(lista);
+                break;
+            case 2:
+                imprimirHorarioArmado(&horarioArmadoAlumno);
+                break;
+            case 3:
+                printf("Hasta la próxima :D\n");
+                break;
+            default:
+                printf("Opción no válida.\n");
+        }
+    } while (opcion != 3);
+}
+
+void agregarClaseAlumno(DList *lista) {
+    mostrarGrupos();
+    int opcion;
+    printf("Seleccione el grupo en el que desea agregar clases: ");
+    scanf("%d", &opcion);
+
+    DList *grupoSeleccionado = &lista[opcion - 1];  
+
+    printf("Ingrese el número de clases que desea agregar: ");
+    int numClases;
+    scanf("%d", &numClases);
+
+    for (int i = 0; i < numClases; i++) {
+        printf("Ingrese el nombre de la clase %d: ", i + 1);
+        char nombreClase[50];
+        scanf("%s", nombreClase);
+
+    
+        char horaInicio[] = "15:00";
+        char horaFin[] = "16:30";
+        char profesor[] = "Profesor Ejemplo";
+
+     
+        if (VerificarTraslape(grupoSeleccionado, horaInicio, horaFin, nombreClase)) {
+            printf("Error: Clase con traslape. No se pudo agregar la clase.\n");
+            i--;  
+        } else {
+            insertarHorario(grupoSeleccionado, nombreClase, horaInicio, horaFin, grupoSeleccionado->grupo, profesor);
+            printf("Clase agregada exitosamente.\n");
+        }
+    }
+
+    printf("Horario final:\n");
+    imprimirHorario(grupoSeleccionado);
+}
+
+void imprimirHorarioArmado(DListHorarioArmado* list) {
+    NodeHorarioArmado* current = list->startArmado;
+
+    printf("\nHorario Armado del Alumno:\n");
+
+    while (current != NULL) {
+        printf("Nombre de la Clase: %s\n", current->nombreClase);
+        printf("Hora de Inicio: %s\n", current->horaInicio);
+        printf("Hora de Fin: %s\n", current->horaFin);
+        printf("Grupo: %s\n", current->grupo);
+        printf("Profesor: %s\n", current->profesor);
+        printf("\n");
+
+        current = current->next;
+    }
+}
+
+int VerificarTraslape(DList *DLi, char horaInicio[10], char horaFin[10], char grupo[10]) {
+    NodeDL *current = DLi->start;
+
+    while (current != NULL) {
+        if (strcmp(current->grupo, grupo) == 0) {
+            if ((strcmp(horaInicio, current->horaInicio) >= 0 && strcmp(horaInicio, current->horaFin) <= 0) ||
+                (strcmp(horaFin, current->horaInicio) >= 0 && strcmp(horaFin, current->horaFin) <= 0)) {
+                return 1; 
+            }
+        }
+
+        current = current->next;
+    }
+
+    return 0;
+}
+void insertarHorarioArmado(DListHorarioArmado* list, char nombreClase[50], char horaInicio[10], char horaFin[10], char grupo[10], char profesor[50]) {
+    NodeHorarioArmado *new = (NodeHorarioArmado*)malloc(sizeof(NodeHorarioArmado));
+
+    new->next = list->startArmado;
+
+    if (list->startArmado != NULL) {
+        list->startArmado->prev = new;
+    }
+
+    list->startArmado = new;
+
+    strncpy(new->nombreClase, nombreClase, sizeof(new->nombreClase) - 1);
+    strncpy(new->horaInicio, horaInicio, sizeof(new->horaInicio) - 1);
+    strncpy(new->horaFin, horaFin, sizeof(new->horaFin) - 1);
+    strncpy(new->grupo, grupo, sizeof(new->grupo) - 1);
+    strncpy(new->profesor, profesor, sizeof(new->profesor) - 1);
+
+    new->nombreClase[sizeof(new->nombreClase) - 1] = '\0';
+    new->horaInicio[sizeof(new->horaInicio) - 1] = '\0';
+    new->horaFin[sizeof(new->horaFin) - 1] = '\0';
+    new->grupo[sizeof(new->grupo) - 1] = '\0';
+    new->profesor[sizeof(new->profesor) - 1] = '\0';
+
+    new->prev = NULL;
 }
