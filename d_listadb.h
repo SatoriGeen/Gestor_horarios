@@ -26,8 +26,25 @@ typedef struct NodeDL{
 
 typedef struct DList{
     NodeDL *start;
+    char grupo[10];
 } DList;
 
+typedef struct NodeHorarioArmado {
+    char nombreClase[50];
+    char horaInicio[10];
+    char horaFin[10];
+    char grupo[10];
+    char profesor[50];
+
+    struct NodeHorarioArmado* next;
+    struct NodeHorarioArmado* prev;
+} NodeHorarioArmado;
+
+typedef struct DListHorarioArmado {
+    NodeHorarioArmado* startArmado;  
+} DListHorarioArmado;
+
+extern DListHorarioArmado horarioArmadoAlumno;
 
 void create(DList *DLi);
 void createU(UdList *UDli);
@@ -49,5 +66,12 @@ void mostrarGrupos();
 void menuAdmin();
 void imprimirCLases(DList *Dli);
 void menuDeListas();
-
+//las que acabo de poner
+void insertarHorarioArmado(DListHorarioArmado* list, char nombreClase[50], char horaInicio[10], char horaFin[10], char grupo[10], char profesor[50]);
+void imprimirHorarioArmado(DListHorarioArmado* list);
+void agregarClaseAlumno(DList *lista);
+void menuAlumno(DList *lista);
+void imprimirHorario(DList *Dli);
+int VerificarTraslape(DList *DLi, char horaInicio[10], char horaFin[10], char grupo[10]);
+void createHorarioArmado(DListHorarioArmado* list);
 #endif
