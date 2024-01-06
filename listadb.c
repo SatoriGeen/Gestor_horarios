@@ -132,10 +132,10 @@ int main(){
 
                     switch (opcion) {
                         case 1:
-
+                            agregarClaseAlumno(lista);
                             break;
                         case 2:
-                            
+                            imprimirHorarioArmado(&horarioArmadoAlumno);
                             break;
                         case 3:
                             printf("Hasta la proxima :D\n");
