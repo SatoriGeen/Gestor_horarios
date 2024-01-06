@@ -4,8 +4,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-DListHorarioArmado horarioArmadoAlumno; 
-
 void create(DList *DLi){
     DLi->start=NULL;
 }
@@ -115,13 +113,15 @@ void imprimirHorario(DList *Dli){
     else{
         while (aux!=NULL)
         {
+            
 
+            printf("| Clase: %s ", aux->nombreClase);
+            printf("| Hora inicio: %s ", aux->horaInicio);
+            printf("| Hora fin: %s ", aux->horaFin);
+            printf("| Grupo: %s ", aux->grupo);
+            printf("| Profesor: %s |", aux->profesor);
             printf("\n");
-            printf("Clase: %s\n", aux->nombreClase);
-            printf("Hora inicio: %s\n", aux->horaInicio);
-            printf("Hora fin: %s\n", aux->horaFin);
-            printf("Grupo: %s\n", aux->grupo);
-            printf("Profesor %s\n", aux->profesor);
+            printf("----------------------------------------------------------------------------------------------------------------------------------------------------");
             printf("\n");
             aux=aux->next;
 
@@ -129,45 +129,6 @@ void imprimirHorario(DList *Dli){
 
     } 
 
-}
-
-void mostrarGrupos(){
-    printf("Lista de grupos existentes: \n");
-    printf("1. 2CV1\n");
-    printf("2. 2CV2\n");
-    printf("3. 2CV3\n");
-    printf("4. 2CV4\n");
-    printf("elige un grupo: ");
-}
-
-void menuAdmin(){
-    int eleccion;
-    int opcion;
-    do
-    {
-        printf("\n---BIENVENIDO---\n");
-        printf("1. Agregar usuario nuevo\n");
-        printf("2. Insertar horario");
-        printf("3. Editar horarios\n");
-        printf("4. Salir\n");
-        printf("Por favor digite el numero de accion deseada:");
-        scanf("%d", &eleccion);
-        
-        switch (eleccion)
-        {
-        case 1:
-
-
-            break;
-        case 2:
-            mostrarGrupos();
-            
-            break;
-        default:
-            break;
-        }
-    } while (eleccion!=3);
-    
 }
 
 void manejarInsercionEnHorario(DList *lista, int opcion) {
@@ -276,7 +237,7 @@ void imprimirCLases(DList *Dli){
     else{
         while (aux!=NULL)
         {
-            contador++;
+
             printf("Clase %d:  %s\n", contador, aux->nombreClase);
             printf("\n");
             aux=aux->next;
@@ -333,7 +294,7 @@ void eliminarHorario(DList *DLi, char nombreClaseEliminar[50]) {
 }
 
 void menuDeListas(){
-    printf("\ngrupo a editar: \n");
+    printf("\nSeleccione un grupo: \n");
     printf("1. 2CV1\n");
     printf("2. 2CV2\n");
     printf("3. 2CV3\n");
@@ -369,7 +330,7 @@ void manejarInsercionDeUsuarios(UdList* UDLi) {
         return;
     }
     
-    getchar(); // Limpiar el búfer de nueva línea
+    getchar();
 
     switch (rol) {
         case 1:
@@ -403,6 +364,12 @@ int iniciarSesion(UdList *UDLi, char nombreUsuario[], char contrasena[]) {
     return 0; 
 }
 
+
+
+// alexis
+
+
+/*
 void menuAlumno(DList *lista) {
     int opcion;
     
@@ -429,7 +396,9 @@ void menuAlumno(DList *lista) {
         }
     } while (opcion != 3);
 }
+*/
 
+/*
 void agregarClaseAlumno(DList *lista) {
     mostrarGrupos();
     int opcion;
@@ -465,6 +434,7 @@ void agregarClaseAlumno(DList *lista) {
     printf("Horario final:\n");
     imprimirHorario(grupoSeleccionado);
 }
+*/
 
 void imprimirHorarioArmado(DListHorarioArmado* list) {
     NodeHorarioArmado* current = list->startArmado;
@@ -483,6 +453,7 @@ void imprimirHorarioArmado(DListHorarioArmado* list) {
     }
 }
 
+/*
 int VerificarTraslape(DList *DLi, char horaInicio[10], char horaFin[10], char grupo[10]) {
     NodeDL *current = DLi->start;
 
@@ -499,7 +470,9 @@ int VerificarTraslape(DList *DLi, char horaInicio[10], char horaFin[10], char gr
 
     return 0;
 }
-void insertarHorarioArmado(DListHorarioArmado* list, char nombreClase[50], char horaInicio[10], char horaFin[10], char grupo[10], char profesor[50]) {
+*/
+
+/*void insertarHorarioArmado(DListHorarioArmado* list, char nombreClase[50], char horaInicio[10], char horaFin[10], char grupo[10], char profesor[50]) {
     NodeHorarioArmado *new = (NodeHorarioArmado*)malloc(sizeof(NodeHorarioArmado));
 
     new->next = list->startArmado;
@@ -524,3 +497,4 @@ void insertarHorarioArmado(DListHorarioArmado* list, char nombreClase[50], char 
 
     new->prev = NULL;
 }
+*/

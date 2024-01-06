@@ -63,7 +63,6 @@ void imprimirHorario(DList *Dli);
 void imprimirUsuarios(UdList *UDLi);
 void imprimirListas(DList *Dli);
 void mostrarGrupos();
-void menuAdmin();
 void imprimirCLases(DList *Dli);
 void menuDeListas();
 //las que acabo de poner
