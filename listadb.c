@@ -5,24 +5,21 @@
 
 int main(){
     
-    DList _2CV1_, _2CV2_, _2CV3_, _2CV4_;
+    DList _2CV1_, _2CV2_, _2CV3_, _2CV4_, _2CV5_;
     create(&_2CV1_);
     create(&_2CV2_);
     create(&_2CV3_);
     create(&_2CV4_);
-    DList *listas[] = {&_2CV1_, &_2CV2_, &_2CV3_, &_2CV4_};
+    create(&_2CV5_);
+    DList *listas[] = {&_2CV1_, &_2CV2_, &_2CV3_, &_2CV4_, &_2CV5_};
     
-    int opcion;
-    int opi;
-    int opio;
-    int ape;
+    int opcion, opi, opio, ape;
 
     UdList listaUsuarios;
     listaUsuarios.start = NULL;
 
     DListHorarioArmado horarioArmado;
-
-
+    createHorarioArmado(&horarioArmado);
 
     insertarUsuarios(&listaUsuarios, "sato", "pass1", "no se 1", "Admin");
     insertarUsuarios(&listaUsuarios, "sata", "pass2", "no se 2", "Alumno");
@@ -32,27 +29,26 @@ int main(){
     insertarHorario(&_2CV1_, "Algebra Lineal", "16:30", "18:00", "2CV1", "Montiel Sanchez Angel Salvador");
     insertarHorario(&_2CV1_, "Calculo Aplicado", "18:30", "20:00", "2CV1", "Juarez Mendez Ana Belem");
     insertarHorario(&_2CV1_, "Mecanica y Electromagnetismo", "20:00", "21:30", "2CV1", "Nava Lara Joel");
-    insertarHorario(&_2CV1_, "Ingenieria Etica y Sociedad", "15:30", "17:00", "2CV1", "Juarez Leon Carlos");
 
-    insertarHorario(&_2CV2_, "Calculo Aplicado", "16:00", "17:30", "2CV2", "Zarate Cardenas Alejandro");
-    insertarHorario(&_2CV2_, "Mecanica y Electromagnetismo", "17:30", "19:00", "2CV2", "Hernandez Garcia Rosa Alba");
+    insertarHorario(&_2CV2_, "Calculo Aplicado", "16:30", "18:00", "2CV2", "Zarate Cardenas Alejandro");
     insertarHorario(&_2CV2_, "Fundamentos Economicos", "18:30", "20:00", "2CV2", "Estrada Elizalde Serafin");
     insertarHorario(&_2CV2_, "Algoritmos y Estructura de Datos", "20:00", "21:30", "2CV2", "Macias Perez Francisco Javier");
-    insertarHorario(&_2CV2_, "Algebra Lineal", "15:30", "17:00", "2CV2", "Tirado Lule Judith Margarita");
+    insertarHorario(&_2CV2_, "Algebra Lineal", "15:00", "16:30", "2CV2", "Tirado Lule Judith Margarita");
 
     insertarHorario(&_2CV3_, "Fundamentos Economicos", "15:00", "16:30", "2CV3", "Flores Meraz Yesica Sonia");
     insertarHorario(&_2CV3_, "Algoritmos y Estructura de Datos", "16:30", "18:00", "2CV3", "Cruz Lazaro Ing Apolinar Francisco");
     insertarHorario(&_2CV3_, "Ingenieria Etica y Sociedad", "18:30", "20:00", "2CV3", "Villegas Navarrete Sonia");
     insertarHorario(&_2CV3_, "Calculo Aplicado", "20:00", "21:30", "2CV3", "Cruz Garcia Daniel");
-    insertarHorario(&_2CV3_, "Mecanica y Electromagnetismo", "15:30", "17:00", "2CV3", "Leon Hernandez Miguel Abel");
 
-    insertarHorario(&_2CV4_, "Algebra Lineal", "16:00", "17:30", "2CV4", "Levario Medina Sergio");
-    insertarHorario(&_2CV4_, "Calculo Aplicado", "17:30", "19:00", "2CV4", "Gonzalez Albarran Gisela");
+    insertarHorario(&_2CV4_, "Algebra Lineal", "16:30", "18:00", "2CV4", "Levario Medina Sergio");
+    insertarHorario(&_2CV4_, "Calculo Aplicado", "15:00", "16:30", "2CV4", "Gonzalez Albarran Gisela");
     insertarHorario(&_2CV4_, "Mecanica y Electromagnetismo", "18:30", "20:00", "2CV4", "Moscoso Malagon Yosafat");
     insertarHorario(&_2CV4_, "Fundamentos Economicos", "20:00", "21:30", "2CV4", "Ortuno Araujo Jesus");
-    insertarHorario(&_2CV4_, "Ingenieria Etica y Sociedad", "15:30", "17:00", "2CV4", "Gonzalez Garcia Gustavo");
 
-
+    insertarHorario(&_2CV5_, "Calculo Aplicado", "16:30", "18:00", "2CV2", "Zarate Cardenas Alejandro");
+    insertarHorario(&_2CV5_, "Fundamentos Economicos", "18:30", "20:00", "2CV2", "Levario Medina Sergio");
+    insertarHorario(&_2CV5_, "Algoritmos y Estructura de Datos", "20:00", "21:30", "2CV2", "Roa Mendez Saul");
+    insertarHorario(&_2CV5_, "Algebra Lineal", "15:00", "16:30", "2CV2", "Estrada Elizalde Serafin");
 
     char nombreUsuario[15];
     char contrasena[50];
@@ -165,20 +161,22 @@ int main(){
                         case 1:
 
                             menuDeListas();
+
                             scanf("%d", &ape);
                             getchar();
-                            printf("Clases actuales en grupo: \n");
-                            printf("\n");
-                            printf("----------------------------------------------------------------------------------------------------------------------------------------------------");
-                            createHorarioArmado(&horarioArmado);
 
+                            printf("Clases actuales en grupo: \n");
+                        
                             armarHorario(listas[ape - 1], &horarioArmado);
 
                             break;
                         case 2:
                             
                             printf("\nHorario armado:\n");
+                            printf("\n");
+                            printf("----------------------------------------------------------------------------------------------------------------------------------------------------");
                             printListArmado(&horarioArmado);
+                            printf("\n");
 
                             break;
                         case 3:

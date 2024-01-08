@@ -379,14 +379,13 @@ void armarHorario(DList* DLi, DListHorarioArmado* DLiArmado) {
 
     while (aux != NULL && contador < 4) {
 
+        printf("\n");
         printf("| Clase: %s ", aux->nombreClase);
         printf("| Hora inicio: %s ", aux->horaInicio);
         printf("| Hora fin: %s ", aux->horaFin);
         printf("| Grupo: %s ", aux->grupo);
         printf("| Profesor: %s |", aux->profesor);
-        printf("\n");
-        printf("----------------------------------------------------------------------------------------------------------------------------------------------------");
-        printf("\n");
+        printf("\n\n");
 
         printf("Teclea 1 para seleccionar este horario, 0 para pasar al siguiente: ");
         scanf("%d", &seleccion);
@@ -431,16 +430,19 @@ void armarHorario(DList* DLi, DListHorarioArmado* DLiArmado) {
 
 void printListArmado(DListHorarioArmado* DLiArmado) {
     NodeHorarioArmado* aux = DLiArmado->startArmado;
+    int contador = 0;
 
     while (aux != NULL) {
+        contador++;
         printf("\n");
-        printf("\t| Clase: %s\t\t", aux->nombreClase);
-        printf("| Hora inicio: %s\t", aux->horaInicio);
-        printf("| Hora fin: %s\t", aux->horaFin);
-        printf("| Grupo: %s\t", aux->grupo);
-        printf("| Profesor: %s |\n", aux->profesor);
+        printf(" %d. | Clase: %s ", contador, aux->nombreClase);
+        printf("| Hora inicio: %s ", aux->horaInicio);
+        printf("| Hora fin: %s ", aux->horaFin);
+        printf("| Grupo: %s ", aux->grupo);
+        printf("| Profesor: %s |", aux->profesor);
         printf("\n");
-
+        printf("----------------------------------------------------------------------------------------------------------------------------------------------------");
+        printf("\n");
         aux = aux->next;
     }
 }
@@ -468,7 +470,7 @@ void eliminarHorarioRep(DListHorarioArmado* DLiArmado) {
     }
 
     int seleccion;
-    printf("Seleccione el numero del horario que desea eliminar (ingrese 0 para cancelar): ");
+    printf("\nSeleccione el numero del horario que desea eliminar (ingrese 0 para cancelar): \n");
     scanf("%d", &seleccion);
 
     if (seleccion == 0) {
