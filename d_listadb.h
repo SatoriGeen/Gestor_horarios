@@ -65,12 +65,11 @@ void imprimirListas(DList *Dli);
 void mostrarGrupos();
 void imprimirCLases(DList *Dli);
 void menuDeListas();
-//las que acabo de poner
-void insertarHorarioArmado(DListHorarioArmado* list, char nombreClase[50], char horaInicio[10], char horaFin[10], char grupo[10], char profesor[50]);
-void imprimirHorarioArmado(DListHorarioArmado* list);
-void agregarClaseAlumno(DList *lista);
-void menuAlumno(DList *lista);
-void imprimirHorario(DList *Dli);
-int VerificarTraslape(DList *DLi, char horaInicio[10], char horaFin[10], char grupo[10]);
-void createHorarioArmado(DListHorarioArmado* list);
+int iniciarSesion(UdList *UDLi, char nombreUsuario[], char contrasena[]);
+void printListArmado(DListHorarioArmado* DLiArmado);
+void armarHorario(DList* DLi, DListHorarioArmado* DLiArmado);
+void createHorarioArmado(DListHorarioArmado* DLiArmado);
+
+void eliminarHorarioRep(DListHorarioArmado* DLiArmado);
+void mostrarHorariosArmados(DListHorarioArmado* DLiArmado);
 #endif

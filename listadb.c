@@ -3,14 +3,6 @@
 #include <stdio.h>
 #include <string.h>
 
-int iniciarSesion(UdList *UDLi, char nombreUsuario[], char contrasena[]);
-void printListArmado(DListHorarioArmado* DLiArmado);
-void armarHorario(DList* DLi, DListHorarioArmado* DLiArmado);
-void createHorarioArmado(DListHorarioArmado* DLiArmado);
-bool existeHorario(DListHorarioArmado* DLiArmado, const char* horaInicio, const char* horaFin);
-void eliminarHorarioRep(DListHorarioArmado* DLiArmado);
-void mostrarHorariosArmados(DListHorarioArmado* DLiArmado);
-
 int main(){
     
     DList _2CV1_, _2CV2_, _2CV3_, _2CV4_;
@@ -162,9 +154,10 @@ int main(){
 
                 do {
                     printf("\nMenu de Alumno\n");
-                    printf("1. Armar horario de clases\n");
+                    printf("1. Agregar grupo al horario\n");
                     printf("2. Imprimir horario\n");
-                    printf("3. Salir\n");
+                    printf("3. Eliminar grupo\n");
+                    printf("4. Salir\n");
                     printf("Seleccione una opcion: ");
                     scanf("%d", &opcion);
 
@@ -176,18 +169,14 @@ int main(){
                             getchar();
                             printf("Clases actuales en grupo: \n");
                             printf("\n");
-                            printf("\n");
                             printf("----------------------------------------------------------------------------------------------------------------------------------------------------");
-                            imprimirHorario(listas[ape - 1]);
                             createHorarioArmado(&horarioArmado);
-
 
                             armarHorario(listas[ape - 1], &horarioArmado);
 
                             break;
                         case 2:
                             
-
                             printf("\nHorario armado:\n");
                             printListArmado(&horarioArmado);
 
@@ -209,140 +198,4 @@ int main(){
     }
 
     return 0;
-}
-
-void armarHorario(DList* DLi, DListHorarioArmado* DLiArmado) {
-    NodeDL* aux = DLi->start;
-    int contador = 0;
-    int seleccion;
-
-    printf("Selecciona los horarios que deseas agregar al horario armado:\n");
-
-    while (aux != NULL && contador < 4) {
-
-        printf("\n");
-        printf("\t| Clase: %s\t\t", aux->nombreClase);
-        printf("| Hora inicio: %s\t", aux->horaInicio);
-        printf("| Hora fin: %s\t", aux->horaFin);
-        printf("| Grupo: %s\t", aux->grupo);
-        printf("| Profesor: %s |\n", aux->profesor);
-        printf("\n");
-
-        printf("Teclea 1 para seleccionar este horario, 0 para pasar al siguiente: ");
-        scanf("%d", &seleccion);
-
-        if (seleccion == 1) {
-
-            if (!existeHorario(DLiArmado, aux->horaInicio, aux->horaFin)) {
-
-                NodeHorarioArmado* newArmado = (NodeHorarioArmado*)malloc(sizeof(NodeHorarioArmado));
-                newArmado->next = DLiArmado->startArmado;
-
-                if (DLiArmado->startArmado != NULL) {
-                    DLiArmado->startArmado->prev = newArmado;
-                }
-
-                DLiArmado->startArmado = newArmado;
-
-                strncpy(newArmado->nombreClase, aux->nombreClase, sizeof(newArmado->nombreClase) - 1);
-                strncpy(newArmado->horaInicio, aux->horaInicio, sizeof(newArmado->horaInicio) - 1);
-                strncpy(newArmado->horaFin, aux->horaFin, sizeof(newArmado->horaFin) - 1);
-                strncpy(newArmado->grupo, aux->grupo, sizeof(newArmado->grupo) - 1);
-                strncpy(newArmado->profesor, aux->profesor, sizeof(newArmado->profesor) - 1);
-
-                newArmado->nombreClase[sizeof(newArmado->nombreClase) - 1] = '\0';
-                newArmado->horaInicio[sizeof(newArmado->horaInicio) - 1] = '\0';
-                newArmado->horaFin[sizeof(newArmado->horaFin) - 1] = '\0';
-                newArmado->grupo[sizeof(newArmado->grupo) - 1] = '\0';
-                newArmado->profesor[sizeof(newArmado->profesor) - 1] = '\0';
-
-                newArmado->prev = NULL;
-
-                contador++;
-            } else {
-                printf("No se puede ingresar este horario, ya existe un horario con las mismas horas de inicio y fin. Elige otro por favor.\n");
-            }
-        }
-
-        aux = aux->next;
-    }
-}
-
-
-void printListArmado(DListHorarioArmado* DLiArmado) {
-    NodeHorarioArmado* aux = DLiArmado->startArmado;
-
-    while (aux != NULL) {
-        printf("\n");
-        printf("\t| Clase: %s\t\t", aux->nombreClase);
-        printf("| Hora inicio: %s\t", aux->horaInicio);
-        printf("| Hora fin: %s\t", aux->horaFin);
-        printf("| Grupo: %s\t", aux->grupo);
-        printf("| Profesor: %s |\n", aux->profesor);
-        printf("\n");
-
-        aux = aux->next;
-    }
-}
-
-void createHorarioArmado(DListHorarioArmado* DLiArmado) {
-    DLiArmado->startArmado = NULL;
-}
-
-bool existeHorario(DListHorarioArmado* DLiArmado, const char* horaInicio, const char* horaFin) {
-    NodeHorarioArmado* aux = DLiArmado->startArmado;
-
-    while (aux != NULL) {
-        if (strcmp(aux->horaInicio, horaInicio) == 0 && strcmp(aux->horaFin, horaFin) == 0) {
-            return true;
-        }
-        aux = aux->next;
-    }
-
-    return false;
-}
-
-void eliminarHorarioRep(DListHorarioArmado* DLiArmado) {
-
-    printListArmado(DLiArmado);
-
-    if (DLiArmado->startArmado == NULL) {
-        printf("No hay horarios armados para eliminar.\n");
-        return;
-    }
-
-    int seleccion;
-    printf("Seleccione el numero del horario que desea eliminar (ingrese 0 para cancelar): ");
-    scanf("%d", &seleccion);
-
-    if (seleccion == 0) {
-        printf("Operacion cancelada.\n");
-        return;
-    }
-
-    NodeHorarioArmado* actual = DLiArmado->startArmado;
-    int contador = 1;
-
-    while (actual != NULL && contador < seleccion) {
-        actual = actual->next;
-        contador++;
-    }
-
-    if (actual != NULL) {
-
-        if (actual->prev != NULL) {
-            actual->prev->next = actual->next;
-        } 
-        else {
-            DLiArmado->startArmado = actual->next;
-        }
-        if (actual->next != NULL) {
-            actual->next->prev = actual->prev;
-        }
-
-        free(actual);
-        printf("Horario eliminado.\n");
-    } else {
-        printf("No se encontro horario.\n");
-    }
 }
