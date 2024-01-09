@@ -69,7 +69,7 @@ int iniciarSesion(UdList *UDLi, char nombreUsuario[], char contrasena[]);
 void printListArmado(DListHorarioArmado* DLiArmado);
 void armarHorario(DList* DLi, DListHorarioArmado* DLiArmado);
 void createHorarioArmado(DListHorarioArmado* DLiArmado);
-
 void eliminarHorarioRep(DListHorarioArmado* DLiArmado);
 void mostrarHorariosArmados(DListHorarioArmado* DLiArmado);
+
 #endif

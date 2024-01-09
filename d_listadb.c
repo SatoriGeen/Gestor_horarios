@@ -60,17 +60,38 @@ void insertarUsuarios(UdList *UDLi, char nombreUsuario[15], char contrasena[50],
 
 }
 
-void insertarHorario(DList *DLi, char nombreClase[50], char horaInicio[10], char horaFin[10], char grupo[10], char profesor[50]){
+void insertarHorario(DList *DLi, char nombreClase[50], char horaInicio[10], char horaFin[10], char grupo[10], char profesor[50]) {
     
-    NodeDL *new=(NodeDL *)malloc(sizeof(NodeDL));
-
-    new->next=DLi->start;
-    
-    if (!is_empty(*DLi)){
-        DLi->start->prev=new;
+    // Verificar si ya existe un horario con la misma hora de inicio y fin en el grupo y la misma materia
+    NodeDL *aux = DLi->start;
+    while (aux != NULL) {
+        if (strcmp(aux->grupo, grupo) == 0) {
+            if ((strcmp(horaInicio, aux->horaInicio) >= 0 && strcmp(horaInicio, aux->horaFin) < 0) ||
+                (strcmp(horaFin, aux->horaInicio) > 0 && strcmp(horaFin, aux->horaFin) <= 0) ||
+                (strcmp(horaInicio, aux->horaInicio) <= 0 && strcmp(horaFin, aux->horaFin) >= 0)) {
+                
+                // Verifica traslape mat
+                
+                if (strcmp(nombreClase, aux->nombreClase) == 0) {
+                    printf("No se puede agregar la materia al grupo, ya existe o coincide con algun horario.\n");
+                    system("pause");
+                    return;
+                }
+            }
+        }
+        aux = aux->next;
     }
 
-    DLi->start=new;
+    // procede
+    NodeDL *new = (NodeDL *)malloc(sizeof(NodeDL));
+
+    new->next = DLi->start;
+    
+    if (!is_empty(*DLi)){
+        DLi->start->prev = new;
+    }
+
+    DLi->start = new;
 
     strncpy(new->nombreClase, nombreClase, sizeof(new->nombreClase) - 1);
     strncpy(new->horaInicio, horaInicio, sizeof(new->horaInicio) - 1);
@@ -84,62 +105,62 @@ void insertarHorario(DList *DLi, char nombreClase[50], char horaInicio[10], char
     new->grupo[sizeof(new->grupo) - 1] = '\0';
     new->profesor[sizeof(new->profesor) - 1] = '\0';
 
-    new->prev=NULL;
-
+    new->prev = NULL;
 }
 
-void imprimirUsuarios(UdList *UDLi){
+void imprimirUsuarios(UdList *UDLi) {
     UsuarioDL *aux = UDLi->start;
-    if (is_emptyU(*UDLi)){
-        printf("No hay usuarios");
-    }
-    else{
-        while (aux!=NULL)
-        {
-            printf("\n");
-            printf("Usuario: %s\n", aux->nombreUsuario);
-            printf("Contrasena: %s\n", aux->contrasena);
-            printf("Nombre completo: %s\n", aux->nombreCompleto);
-            printf("Rol del usuario: %s\n", aux->rolUsuario);
-            printf("\n");
-            aux=aux->next;
+
+    if (is_emptyU(*UDLi)) {
+        printf("No hay usuarios\n");
+    } else {
+
+        printf("\n");
+        printf("|----------------------|------------------------------------------|----------------------|\n");
+        printf("| %-20s | %-40s | %-20s |\n", "Usuario", "Nombre completo", "Rol del usuario");
+        printf("|----------------------|------------------------------------------|----------------------|\n");
+
+        while (aux != NULL) {
+            printf("| %-20s | %-40s | %-20s |\n",
+                   aux->nombreUsuario, aux->nombreCompleto, aux->rolUsuario);
+            aux = aux->next;
         }
-        
+
+        printf("|----------------------|------------------------------------------|----------------------|\n");
+        printf("\n");
     }
 
+    printf("Presiona Enter para continuar...");
+    system("pause");
 }
 
-void imprimirHorario(DList *Dli){
+void imprimirHorario(DList *Dli) {
     NodeDL *aux = Dli->start;
-    if (is_empty(*Dli)){
 
-        printf("Grupo vacio");
+    if (is_empty(*Dli)) {
+        printf("Grupo vacio\n");
+    } else {
+        printf("\n");        
+        printf("|------------------------------------------|-------------|-------------|----------|------------------------------------------|\n");
+        printf("| %-40s | %-11s | %-11s | %-8s | %-40s |\n", "Clase", "Hora inicio", "Hora fin", "Grupo", "Profesor");
+        printf("|------------------------------------------|-------------|-------------|----------|------------------------------------------|\n");
 
+        while (aux != NULL) {
+            printf("| %-40s | %-11s | %-11s | %-8s | %-40s |\n", aux->nombreClase, aux->horaInicio, aux->horaFin, aux->grupo, aux->profesor);
+            aux = aux->next;
+        }
+
+        printf("|------------------------------------------|-------------|-------------|----------|------------------------------------------|\n");
+        printf("\n");
     }
-    else{
-        while (aux!=NULL)
-        {
-            
-
-            printf("| Clase: %s ", aux->nombreClase);
-            printf("| Hora inicio: %s ", aux->horaInicio);
-            printf("| Hora fin: %s ", aux->horaFin);
-            printf("| Grupo: %s ", aux->grupo);
-            printf("| Profesor: %s |", aux->profesor);
-            printf("\n");
-            printf("----------------------------------------------------------------------------------------------------------------------------------------------------");
-            printf("\n");
-            aux=aux->next;
-
-        }   
-
-    } 
-
+    
+    printf("Presiona Enter para continuar...");
+    getchar();
 }
 
 void manejarInsercionEnHorario(DList *lista, int opcion) {
     char nombreClase[50], horaInicio[10], horaFin[10], grupo[10],profesor[50];
-
+            system("cls");
             printf("Ingrese el nombre de la clase: ");
             fgets(nombreClase, sizeof(nombreClase), stdin);
             nombreClase[strcspn(nombreClase, "\n")] = '\0';
@@ -173,8 +194,11 @@ void manejarInsercionEnHorario(DList *lista, int opcion) {
         printf("Ingrese el nombre del profesor: ");
         fgets(profesor, sizeof(profesor), stdin);
         profesor[strcspn(profesor, "\n")] = '\0';
-
+        printf("\n");
         insertarHorario(lista, nombreClase, horaInicio, horaFin, grupo, profesor);
+        printf("Materia agregada exitosamente!\n");
+        imprimirHorario(lista);
+        
 }
 
 void manejarEdicionEnGrupo(DList *lista, int opi){
@@ -375,56 +399,74 @@ void armarHorario(DList* DLi, DListHorarioArmado* DLiArmado) {
     int contador = 0;
     int seleccion;
 
-    printf("Selecciona los horarios que deseas agregar al horario armado:\n");
+    printf("Selecciona las materias que deseas agregar al horario (ingresa el numero correspondiente):\n");
+
+    printf("\n");        
+    printf("|---|------------------------------------------|-------------|-------------|----------|------------------------------------------|\n");
+    printf("|%-2s | %-40s | %-11s | %-11s | %-8s | %-40s |\n", "No", "Clase", "Hora inicio", "Hora fin", "Grupo", "Profesor");
+    printf("|---|------------------------------------------|-------------|-------------|----------|------------------------------------------|\n");
+
 
     while (aux != NULL && contador < 4) {
-
-        printf("\n");
-        printf("| Clase: %s ", aux->nombreClase);
-        printf("| Hora inicio: %s ", aux->horaInicio);
-        printf("| Hora fin: %s ", aux->horaFin);
-        printf("| Grupo: %s ", aux->grupo);
-        printf("| Profesor: %s |", aux->profesor);
-        printf("\n\n");
-
-        printf("Teclea 1 para seleccionar este horario, 0 para pasar al siguiente: ");
-        scanf("%d", &seleccion);
-
-        if (seleccion == 1) {
-
-            if (!existeHorario(DLiArmado, aux->horaInicio, aux->horaFin)) {
-
-                NodeHorarioArmado* newArmado = (NodeHorarioArmado*)malloc(sizeof(NodeHorarioArmado));
-                newArmado->next = DLiArmado->startArmado;
-
-                if (DLiArmado->startArmado != NULL) {
-                    DLiArmado->startArmado->prev = newArmado;
-                }
-
-                DLiArmado->startArmado = newArmado;
-
-                strncpy(newArmado->nombreClase, aux->nombreClase, sizeof(newArmado->nombreClase) - 1);
-                strncpy(newArmado->horaInicio, aux->horaInicio, sizeof(newArmado->horaInicio) - 1);
-                strncpy(newArmado->horaFin, aux->horaFin, sizeof(newArmado->horaFin) - 1);
-                strncpy(newArmado->grupo, aux->grupo, sizeof(newArmado->grupo) - 1);
-                strncpy(newArmado->profesor, aux->profesor, sizeof(newArmado->profesor) - 1);
-
-                newArmado->nombreClase[sizeof(newArmado->nombreClase) - 1] = '\0';
-                newArmado->horaInicio[sizeof(newArmado->horaInicio) - 1] = '\0';
-                newArmado->horaFin[sizeof(newArmado->horaFin) - 1] = '\0';
-                newArmado->grupo[sizeof(newArmado->grupo) - 1] = '\0';
-                newArmado->profesor[sizeof(newArmado->profesor) - 1] = '\0';
-
-                newArmado->prev = NULL;
-
-                contador++;
-
-            } else {
-                printf("No se puede ingresar este horario, ya existe un horario con las mismas horas de inicio y fin. Elige otro por favor.\n");
-            }
-        }
+        printf("|%d. ", contador + 1);
+        printf("| %-40s | %-11s | %-11s | %-8s | %-40s |\n", aux->nombreClase, aux->horaInicio, aux->horaFin, aux->grupo, aux->profesor);
 
         aux = aux->next;
+        contador++;
+    }
+    
+    printf("|---|------------------------------------------|-------------|-------------|----------|------------------------------------------|\n");
+    printf("\n");
+
+
+
+    printf("Ingresa 0 para cancelar\n");
+
+    while (contador > 0) {
+        printf("Selecciona una materia (1-%d) o ingresa 0 para cancelar: ", contador);
+        scanf("%d", &seleccion);
+
+        if (seleccion == 0) {
+            printf("Saliendo al menu principal...\n");
+            break;
+        }
+
+        if (seleccion < 1) {
+            printf("Seleccion no valida.\n");
+            continue;
+        }
+
+        // se obtiene el nodo correspondiente
+        aux = DLi->start;
+        for (int i = 1; i < seleccion; i++) {
+            aux = aux->next;
+        }
+
+        if (!existeHorario(DLiArmado, aux->horaInicio, aux->horaFin)) {
+
+            NodeHorarioArmado* newArmado = (NodeHorarioArmado*)malloc(sizeof(NodeHorarioArmado));
+
+            strncpy(newArmado->nombreClase, aux->nombreClase, sizeof(newArmado->nombreClase) - 1);
+            strncpy(newArmado->horaInicio, aux->horaInicio, sizeof(newArmado->horaInicio) - 1);
+            strncpy(newArmado->horaFin, aux->horaFin, sizeof(newArmado->horaFin) - 1);
+            strncpy(newArmado->grupo, aux->grupo, sizeof(newArmado->grupo) - 1);
+            strncpy(newArmado->profesor, aux->profesor, sizeof(newArmado->profesor) - 1);
+
+            // uso de metodo para ingresar al inicio
+            newArmado->next = DLiArmado->startArmado;
+            newArmado->prev = NULL;
+
+            if (DLiArmado->startArmado != NULL) {
+                DLiArmado->startArmado->prev = newArmado;
+            }
+
+            DLiArmado->startArmado = newArmado;
+
+            printf("La materia se agrego extosamente!.\n");
+            contador--;
+        } else {
+            printf("No se puede ingresar, ya existe un horario con las mismas caracteristicas. verifica tu eleccion por favor.\n");
+        }
     }
 }
 
@@ -432,20 +474,27 @@ void printListArmado(DListHorarioArmado* DLiArmado) {
     NodeHorarioArmado* aux = DLiArmado->startArmado;
     int contador = 0;
 
+    printf("Horario Armado:\n");
+    printf("\n");        
+    printf("|---|------------------------------------------|-------------|-------------|----------|------------------------------------------|\n");
+    printf("|%-2s | %-40s | %-11s | %-11s | %-8s | %-40s |\n", "No", "Clase", "Hora inicio", "Hora fin", "Grupo", "Profesor");
+    printf("|---|------------------------------------------|-------------|-------------|----------|------------------------------------------|\n");
+
     while (aux != NULL) {
         contador++;
-        printf("\n");
-        printf(" %d. | Clase: %s ", contador, aux->nombreClase);
-        printf("| Hora inicio: %s ", aux->horaInicio);
-        printf("| Hora fin: %s ", aux->horaFin);
-        printf("| Grupo: %s ", aux->grupo);
-        printf("| Profesor: %s |", aux->profesor);
-        printf("\n");
-        printf("----------------------------------------------------------------------------------------------------------------------------------------------------");
-        printf("\n");
+        printf("|%d. ", contador);
+        printf("| %-40s | %-11s | %-11s | %-8s | %-40s |\n", aux->nombreClase, aux->horaInicio, aux->horaFin, aux->grupo, aux->profesor);
         aux = aux->next;
     }
+
+    // Línea separadora al final
+    printf("|---|------------------------------------------|-------------|-------------|----------|------------------------------------------|\n");
+    printf("\n");
+
+    printf("\nPresiona Enter para continuar...");
+    system("pause");
 }
+
 
 bool existeHorario(DListHorarioArmado* DLiArmado, const char* horaInicio, const char* horaFin) {
     NodeHorarioArmado* aux = DLiArmado->startArmado;

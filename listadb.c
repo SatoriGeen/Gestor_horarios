@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(){
-    
+int main() {
+
     DList _2CV1_, _2CV2_, _2CV3_, _2CV4_, _2CV5_;
     create(&_2CV1_);
     create(&_2CV2_);
@@ -12,7 +12,7 @@ int main(){
     create(&_2CV4_);
     create(&_2CV5_);
     DList *listas[] = {&_2CV1_, &_2CV2_, &_2CV3_, &_2CV4_, &_2CV5_};
-    
+
     int opcion, opi, opio, ape;
 
     UdList listaUsuarios;
@@ -21,7 +21,7 @@ int main(){
     DListHorarioArmado horarioArmado;
     createHorarioArmado(&horarioArmado);
 
-    insertarUsuarios(&listaUsuarios, "sato", "pass1", "no se 1", "Admin");
+    insertarUsuarios(&listaUsuarios, "sato", "pass1", "Cruz Lazaro Ing Apolinar Francisco", "Admin");
     insertarUsuarios(&listaUsuarios, "sata", "pass2", "no se 2", "Alumno");
     insertarUsuarios(&listaUsuarios, "adata", "pass3", "no se 3", "Alumno");
 
@@ -50,150 +50,160 @@ int main(){
     insertarHorario(&_2CV5_, "Algoritmos y Estructura de Datos", "20:00", "21:30", "2CV2", "Roa Mendez Saul");
     insertarHorario(&_2CV5_, "Algebra Lineal", "15:00", "16:30", "2CV2", "Estrada Elizalde Serafin");
 
+    int opera = 0;
     char nombreUsuario[15];
     char contrasena[50];
 
-    printf("Ingrese el nombre de usuario: ");
-    fgets(nombreUsuario, sizeof(nombreUsuario), stdin);
-    nombreUsuario[strcspn(nombreUsuario, "\n")] = '\0';
+    do {
+        system("cls");
+        printf("Bienvenido!\n");
+        printf("1. Iniciar sesion\n");
+        printf("2. Salir del programa\n");
+        printf("Elige la opcion: ");
+        scanf("%d", &opera);
+        getchar();
+        system("cls");
 
-    printf("Ingrese la contrasena: ");
-    fgets(contrasena, sizeof(contrasena), stdin);
-    contrasena[strcspn(contrasena, "\n")] = '\0';
+        switch (opera) {
 
-    int val = iniciarSesion(&listaUsuarios, nombreUsuario, contrasena);
+        case 1:
+            system("cls");
+            printf("Ingrese el nombre de usuario: ");
+            fgets(nombreUsuario, sizeof(nombreUsuario), stdin);
+            nombreUsuario[strcspn(nombreUsuario, "\n")] = '\0';
 
-    if (val) {
-        UsuarioDL *aux = listaUsuarios.start;
-        while (aux != NULL && strcmp(aux->nombreUsuario, nombreUsuario) != 0) {
-            aux = aux->next;
-        }
+            printf("Ingrese la contrasena: ");
+            fgets(contrasena, sizeof(contrasena), stdin);
+            contrasena[strcspn(contrasena, "\n")] = '\0';
 
-        switch (strcmp(aux->rolUsuario, "Admin")) {
-            case 0:
+            int val = iniciarSesion(&listaUsuarios, nombreUsuario, contrasena);
 
-                do {
-                printf("\n1. Agregar un horario\n");
-                printf("2. Modificar un horario\n");
-                printf("3. Eliminar un horario\n");
-                printf("4. Consultar horarios\n");
-                printf("5. Insertar Usuarios\n");
-                printf("6. Salir\n");
-                printf("Seleccione una opcion: ");
-                scanf("%d", &opcion);
+            if (val) {
+                UsuarioDL *aux = listaUsuarios.start;
+                while (aux != NULL && strcmp(aux->nombreUsuario, nombreUsuario) != 0) {
+                    aux = aux->next;
+                }
 
-                switch (opcion) {
-                    case 1:
+                switch (strcmp(aux->rolUsuario, "Admin")) {
+                case 0:
 
-                        menuDeListas();
-
+                    do {
+                        system("cls");
+                        printf("\n1. Agregar un horario\n");
+                        printf("2. Modificar un horario\n");
+                        printf("3. Eliminar un horario\n");
+                        printf("4. Consultar horarios\n");
+                        printf("5. Insertar usuarios\n");
+                        printf("6. Imprimir usuarios\n");
+                        printf("7. Salir\n");
+                        printf("Seleccione una opcion: ");
                         scanf("%d", &opcion);
 
-                        getchar();
-
-                        manejarInsercionEnHorario(listas[opcion - 1], opcion);
-
-                        break;
-                    case 2:
-
-                        menuDeListas();
-
-                        scanf("%d", &opi);
-                        getchar(); 
-
-                        printf("elige clase a editar \n");
-
-                        imprimirCLases(listas[opi - 1]);
-                        manejarEdicionEnGrupo(listas[opi - 1], opi);
-
-                        break;
-                    case 3:
-
-                        menuDeListas();
-
-                        scanf("%d", &opio);
-                        getchar(); 
-
-                        printf("elige clase a editar \n");
-                        imprimirCLases(listas[opio - 1]);
-
-                        manejarReduccionEnGrupo(listas[opio - 1], opio);
-
-                        break;
-                    case 4:
-
-                        menuDeListas();
-
-                        scanf("%d", &opio);
-                        getchar(); 
-
-                        printf("Clases actuales en grupo: \n");
-                        imprimirCLases(listas[opio - 1]);
-
-                        break;
-                    case 5:
-
-                        manejarInsercionDeUsuarios(&listaUsuarios);
-
-                        break;
-                    case 6:
-                        getchar();
-                        printf("Hasta la proxima :D\n");
-                        break;
-                    default:
-                        printf("Opcion no valida.\n");
-                }
-            } while (opcion != 6);
-
-                break;
-            default:
-
-                do {
-                    printf("\nMenu de Alumno\n");
-                    printf("1. Agregar grupo al horario\n");
-                    printf("2. Imprimir horario\n");
-                    printf("3. Eliminar grupo\n");
-                    printf("4. Salir\n");
-                    printf("Seleccione una opcion: ");
-                    scanf("%d", &opcion);
-
-                    switch (opcion) {
+                        switch (opcion) {
                         case 1:
-
+                            system("cls");
                             menuDeListas();
-
-                            scanf("%d", &ape);
+                            scanf("%d", &opcion);
                             getchar();
-
-                            printf("Clases actuales en grupo: \n");
-                        
-                            armarHorario(listas[ape - 1], &horarioArmado);
-
+                            manejarInsercionEnHorario(listas[opcion - 1], opcion);
                             break;
                         case 2:
-                            
-                            printf("\nHorario armado:\n");
-                            printf("\n");
-                            printf("----------------------------------------------------------------------------------------------------------------------------------------------------");
-                            printListArmado(&horarioArmado);
-                            printf("\n");
-
+                            system("cls");
+                            menuDeListas();
+                            scanf("%d", &opi);
+                            getchar();
+                            printf("elige clase a editar \n");
+                            imprimirHorario(listas[opi - 1]);
+                            manejarEdicionEnGrupo(listas[opi - 1], opi);
                             break;
                         case 3:
-                             eliminarHorarioRep(&horarioArmado);
+                            system("cls");
+                            menuDeListas();
+                            scanf("%d", &opio);
+                            getchar();
+                            printf("elige clase a editar \n");
+                            imprimirHorario(listas[opio - 1]);
+                            manejarReduccionEnGrupo(listas[opio - 1], opio);
                             break;
                         case 4:
+                            system("cls");
+                            menuDeListas();
+                            scanf("%d", &opio);
+                            getchar();
+                            printf("Clases actuales en grupo: \n");
+                            imprimirHorario(listas[opio - 1]);
+                            break;
+                        case 5:
+                            system("cls");
+                            manejarInsercionDeUsuarios(&listaUsuarios);
+                            break;
+                        case 6:
+                            system("cls");
+                            imprimirUsuarios(&listaUsuarios);                            
+                            break;
+                        case 7:
+                            system("cls");
+                            getchar();
                             printf("Hasta la proxima :D\n");
                             break;
                         default:
+                            system("cls");
                             printf("Opcion no valida.\n");
-                    }
-                } while (opcion != 4);
+                        }
+                    } while (opcion != 7);
 
+                    break;
+                default:
+
+                    do {
+                        system("cls");
+                        printf("\nMenu de Alumno\n");
+                        printf("1. Agregar grupo al horario\n");
+                        printf("2. Imprimir horario\n");
+                        printf("3. Eliminar grupo\n");
+                        printf("4. Salir\n");
+                        printf("Seleccione una opcion: ");
+                        scanf("%d", &opcion);
+
+                        switch (opcion) {
+                        case 1:
+                            system("cls");
+                            menuDeListas();
+                            scanf("%d", &ape);
+                            getchar();
+                            printf("Clases actuales en grupo: \n");
+                            armarHorario(listas[ape - 1], &horarioArmado);
+                            break;
+                        case 2:
+                            system("cls");
+                            printListArmado(&horarioArmado);
+                            printf("\n");
+                            break;
+                        case 3:
+                            system("cls");
+                            eliminarHorarioRep(&horarioArmado);
+                            break;
+                        case 4:
+                            system("cls");
+                            printf("Hasta la proxima :D\n");
+                            break;
+                        default:
+                            system("cls");
+                            printf("Opcion no valida.\n");
+                        }
+                    } while (opcion != 4);
+
+                }
+            } else {
+                system("cls");
+                printf("\nUsuario o contrasena incorrectas\n");
+                system("pause");
+            }
+            break;
+        default:
+            break;
         }
-    } else {
-        printf("\nUsuario o contrasena incorrectas\n");
-    }
+    } while (opera == 1);
 
     return 0;
 }
