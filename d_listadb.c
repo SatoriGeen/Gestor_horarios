@@ -407,7 +407,7 @@ void armarHorario(DList* DLi, DListHorarioArmado* DLiArmado) {
     printf("|---|------------------------------------------|-------------|-------------|----------|------------------------------------------|\n");
 
 
-    while (aux != NULL && contador < 4) {
+    while (aux != NULL) {
         printf("|%d. ", contador + 1);
         printf("| %-40s | %-11s | %-11s | %-8s | %-40s |\n", aux->nombreClase, aux->horaInicio, aux->horaFin, aux->grupo, aux->profesor);
 

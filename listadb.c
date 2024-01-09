@@ -56,10 +56,18 @@ int main() {
 
     do {
         system("cls");
-        printf("Bienvenido!\n");
-        printf("1. Iniciar sesion\n");
-        printf("2. Salir del programa\n");
-        printf("Elige la opcion: ");
+        printf("\n");
+        printf("\n");
+        printf("\n");
+        printf("\t+---------------------------------------------------------+\n");    
+        printf("\t|     Bienvenido al sistema de creacion para campania     |\n");
+        printf("\t+---------------------------------------------------------+\n");    
+        printf("\t|                                                         |\n");
+        printf("\t|   Ingrese la opcion deseada                             |\n");
+        printf("\t|   1. Iniciar sesion                                     |\n");
+        printf("\t|   2. Salir del programa                                 |\n");
+        printf("\t|                                                         |\n");
+        printf("\t+---------------------------------------------------------+\n");
         scanf("%d", &opera);
         getchar();
         system("cls");
